@@ -6,7 +6,7 @@ const galleryEll = document.querySelector('.js-gallery');
  const   modal = document.querySelector('.lightbox');
  const   buttonCloseModa = document.querySelector('[data-action="close-lightbox"]');
  const   lightbox__image = document.querySelector('.lightbox__image');
- const   modalContent = document.querySelector('.lightbox__content');
+ 
  const   img = document.createElement('img');
 
 
@@ -56,10 +56,31 @@ function onModalClose(ev) {
       modal.classList.remove('is-open');
     lightbox__image.src = '';
     lightbox__image.alt = ''; 
- };
+};
 
+const imgArray = [];
 
+ images.forEach(ell => imgArray.push(ell.original));
+console.log(imgArray.indexOf(lightbox__image.src));
 
+document.addEventListener('keydown', (ev) => {
+  let newIndex;
+  const curentId = imgArray.indexOf(lightbox__image.src);
+  
+  if (ev.key === 'ArrowLeft') {
+      newIndex = curentId - 1;
+      if (newIndex === -1) {
+        newIndex = imgArray.length - 1;
+      }
+    
+  } else if (ev.key === 'ArrowRight') {
+    newIndex = curentId + 1;
+    if (newIndex === imgArray.length) {
+      newIndex = 0;
+    }
+  }
+  lightbox__image.src = imgArray[newIndex];
+})
 
 
  
